@@ -1,23 +1,11 @@
 <!DOCTYPE html>
-<!--
-  社員旅行スライド（HTML + CSS）
-  GitHub Pages の入口: この index.html（ルート URL で表示されます）
-  スタイル: company-trip-slides.css（相対パス · リポジトリ直下に配置）
-  表示: 全9スライド（1枚目は目次）を縦に並べ、ブラウザでスクロールして閲覧
-  時刻・便名・宿泊先の修正: 各 <section class="slide"> 内を編集
-  画像: assets/ 配下（GitHub に push 必須）
-  Pages の公開フォルダが「/docs」のときは、docs/assets/ にも画像が必要（ルート直下だけだと本番で 404 になります）
--->
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <!-- GitHub Pages: 末尾スラッシュなし URL や /docs 配信でも assets が正しく読めるよう base + img の絶対化 -->
   <script>
   (function () {
     function siteRootHref() {
-      if (location.protocol === 'file:') {
-        return new URL('.', location.href).href;
-      }
+      if (location.protocol === 'file:') return new URL('.', location.href).href;
       var p = location.pathname;
       if (p.endsWith('/index.html')) p = p.slice(0, -10);
       if (!p.endsWith('/')) p += '/';
@@ -27,11 +15,8 @@
     var b = document.createElement('base');
     b.href = root;
     var m = document.querySelector('meta[charset]');
-    if (m) {
-      m.insertAdjacentElement('afterend', b);
-    } else {
-      document.head.insertBefore(b, document.head.firstChild);
-    }
+    if (m) m.insertAdjacentElement('afterend', b);
+    else document.head.insertBefore(b, document.head.firstChild);
     function absolutizeAssets() {
       var baseEl = document.querySelector('base');
       if (!baseEl) return;
@@ -40,459 +25,596 @@
         if (rel) img.src = new URL(rel, baseEl.href).href;
       });
     }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', absolutizeAssets);
-    } else {
-      absolutizeAssets();
-    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', absolutizeAssets);
+    else absolutizeAssets();
   })();
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>社員旅行 行程スライド（2026年4月1日〜5日）</title>
+  <title>社員旅行 行程（2026年4月1日〜5日）</title>
   <link rel="stylesheet" href="./company-trip-slides.css" />
 </head>
 <body>
   <div class="deck-wrap" id="deck">
-    <!-- ========== スライド1: 目次 ========== -->
+
+    <!-- ========== 1 目次 ========== -->
     <section id="slide-1" class="slide" data-slide="1" aria-label="目次">
-      <header class="slide-header">
-        <div class="slide-title-block">
-          <h1>目次</h1>
-          <p class="sub">2026年4月1日〜5日 · 社員旅行スケジュール</p>
+      <header class="slide-hero">
+        <div>
+          <p class="slide-date">しおり</p>
+          <h1 class="slide-title">目次</h1>
+          <p class="slide-note">2026年4月1日〜5日 · タップで各ページへ</p>
         </div>
       </header>
-      <div class="slide-body">
-        <nav class="toc" aria-label="スライド一覧">
-          <ol class="toc-list">
-            <li><span class="num">2</span><a href="#slide-2">4月1日（水）大阪 → バンコク</a></li>
-            <li><span class="num">3</span><a href="#slide-3">4月2日（木）バンコク → サムイ島 → タオ島</a></li>
-            <li><span class="num">4</span><a href="#slide-4">4月3日（金）タオ島滞在</a></li>
-            <li><span class="num">5</span><a href="#slide-5">4月4日（土）タオ島 → サムイ島</a></li>
-            <li><span class="num">6</span><a href="#slide-6">4月5日（日）サムイ島 → バンコク → 大阪</a></li>
-            <li><span class="num">7</span><a href="#slide-7">注意事項まとめ</a></li>
-            <li><span class="num">8</span><a href="#slide-8">持ち物・準備</a></li>
-            <li><span class="num">9</span><a href="#slide-9">タイ入国前に必要なオンライン申請（TDAC）</a></li>
-          </ol>
-        </nav>
-      </div>
+      <nav class="toc-nav" aria-label="行程一覧">
+        <ol class="toc-cards">
+          <li>
+            <a class="toc-card" href="#slide-2">
+              <span class="toc-date">4/1</span>
+              <span class="toc-main">
+                <span class="toc-route">大阪 → バンコク</span>
+                <span class="toc-sum">国際線で入り</span>
+              </span>
+              <span class="toc-badge toc-badge--mid">初日</span>
+            </a>
+          </li>
+          <li>
+            <a class="toc-card" href="#slide-3">
+              <span class="toc-date">4/2</span>
+              <span class="toc-main">
+                <span class="toc-route">バンコク → サムイ島 → タオ島</span>
+                <span class="toc-sum">移動多い日・最重要</span>
+              </span>
+              <span class="toc-badge toc-badge--high">要確認</span>
+            </a>
+          </li>
+          <li>
+            <a class="toc-card" href="#slide-4">
+              <span class="toc-date">4/3</span>
+              <span class="toc-main">
+                <span class="toc-route">タオ島滞在</span>
+                <span class="toc-sum">島でゆったり</span>
+              </span>
+              <span class="toc-badge toc-badge--low">滞在</span>
+            </a>
+          </li>
+          <li>
+            <a class="toc-card" href="#slide-5">
+              <span class="toc-date">4/4</span>
+              <span class="toc-main">
+                <span class="toc-route">タオ島 → サムイ島</span>
+                <span class="toc-sum">フェリー移動</span>
+              </span>
+              <span class="toc-badge toc-badge--mid">移動</span>
+            </a>
+          </li>
+          <li>
+            <a class="toc-card" href="#slide-6">
+              <span class="toc-date">4/5</span>
+              <span class="toc-main">
+                <span class="toc-route">サムイ島 → バンコク → 大阪</span>
+                <span class="toc-sum">朝便・乗継注意</span>
+              </span>
+              <span class="toc-badge toc-badge--high">要確認</span>
+            </a>
+          </li>
+          <li>
+            <a class="toc-card" href="#slide-7">
+              <span class="toc-date">共有</span>
+              <span class="toc-main">
+                <span class="toc-route">注意事項まとめ</span>
+                <span class="toc-sum">部屋・日程の要点</span>
+              </span>
+              <span class="toc-badge toc-badge--info">一覧</span>
+            </a>
+          </li>
+          <li>
+            <a class="toc-card" href="#slide-8">
+              <span class="toc-date">準備</span>
+              <span class="toc-main">
+                <span class="toc-route">持ち物・準備</span>
+                <span class="toc-sum">必須・ダイビング・注意</span>
+              </span>
+              <span class="toc-badge toc-badge--low">準備</span>
+            </a>
+          </li>
+          <li>
+            <a class="toc-card" href="#slide-9">
+              <span class="toc-date">入国</span>
+              <span class="toc-main">
+                <span class="toc-route">TDAC（オンライン登録）</span>
+                <span class="toc-sum">到着3日前まで</span>
+              </span>
+              <span class="toc-badge toc-badge--high">必須</span>
+            </a>
+          </li>
+        </ol>
+      </nav>
     </section>
 
-    <!-- ========== スライド2: 4/1 ========== -->
+    <!-- ========== 2 4/1 ========== -->
     <section id="slide-2" class="slide" data-slide="2" aria-label="4月1日">
-      <header class="slide-header">
-        <div class="slide-title-block">
-          <h1>4月1日（水）大阪 → バンコク</h1>
-          <p class="sub">国際線でバンコク入り · ホテル泊（<strong>バンコクはこの日のみ</strong>）</p>
+      <a class="fab-toc" href="#slide-1">目次へ</a>
+      <header class="slide-hero">
+        <div>
+          <p class="slide-date">4月1日（水）</p>
+          <h1 class="slide-title">大阪 → バンコク</h1>
+          <p class="slide-tagline">フライト・チェックイン</p>
+          <p class="slide-note">バンコクはこの日のみ泊まります。</p>
         </div>
-        <div class="keyline"><strong>キーポイント</strong><br />フライト・チェックイン · 希望があれば市内観光も調整</div>
       </header>
       <div class="slide-body">
-        <div class="layout-split">
-          <div>
-            <div class="timeline" style="margin-bottom: 12px;">
-              <div class="tl-node">
-                <div class="tl-icon-wrap" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" fill="#2563eb"/></svg>
-                </div>
-                <div class="time-big">10:25</div>
-                <div class="place">関西国際空港 第1ターミナル<br />出発</div>
-              </div>
-              <div class="tl-node">
-                <div class="tl-icon-wrap" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" fill="#64748b"/></svg>
-                </div>
-                <div class="time-big">14:25</div>
-                <div class="place">ドンムアン空港 第1ターミナル<br />到着</div>
-                <div class="meta">Thai AirAsia X XJ613</div>
-              </div>
-            </div>
-            <div class="panel">
-              <h2>到着後</h2>
-              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-                <div class="tl-icon-wrap" style="width:44px;height:44px;margin:0;"><svg viewBox="0 0 24 24"><path fill="#64748b" d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg></div>
-                <span style="font-size:15px;">到着後、ホテルへ移動</span>
-              </div>
-              <div class="hotel-block">
-                <div class="hotel-name">宿泊: イビス スタイルズ バンコク スクンビット プラカノン</div>
-                <div class="badge-room">1人1部屋</div>
-                <p style="margin:10px 0 0;font-size:14px;color:var(--muted);">チェックイン 14:00以降 · チェックアウト 4月2日（木）12:00まで</p>
-              </div>
-            </div>
-            <div class="panel" style="margin-top:12px;">
-              <h2>バンコクでやりたいこと</h2>
-              <p style="margin:0 0 10px;font-size:14px;line-height:1.55;">この旅行での<strong>バンコク滞在は4月1日のみ</strong>です。到着後・チェックインのほかに<strong>やりたいことがあれば、可能な限りスケジュールに組みます</strong>。</p>
-              <p style="margin:0 0 10px;font-size:14px;line-height:1.55;"><strong>寺院・カオサン・ショッピング・ムエタイなど、行きたい場所・やりたいことがあれば教えてください。</strong>（まだ決まっていなくても大丈夫です）</p>
-              <p style="margin:0 0 6px;font-size:13px;font-weight:600;color:var(--accent);">バンコクのおすすめ（参考）</p>
-              <ul class="bullet-list" style="font-size:13px;margin-bottom:0;">
-                <li><strong>寺院巡り</strong>（例：ワット・アルン、ワット・ポー など）</li>
-                <li><strong>カオサン・ロード</strong> — 夜の散策で<strong>東南アジアを感じる</strong>ムード</li>
-                <li><strong>ショッピング</strong>（モール・マーケットなど）</li>
-                <li><strong>ムエタイ観戦</strong>（会場・日程は開催に応じて要確認）</li>
-              </ul>
+        <div class="v-flow">
+          <div class="v-step v-step--flight">
+            <div class="v-step__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" fill="currentColor"/></svg></div>
+            <div class="v-step__body">
+              <div class="v-step__time">10:25</div>
+              <div class="v-step__label">関西国際空港 第1ターミナル 出発</div>
             </div>
           </div>
-          <div class="img-strip">
-            <div class="media-slot media-slot--photo" data-asset="day1-photo-1">
-              <img src="assets/day1-wat-arun.png" width="560" height="360" alt="バンコク ワット・アルン（夜景）" loading="lazy" decoding="async" />
-              <p class="img-caption">バンコク · ワット・アルン（夜景）</p>
-            </div>
-            <div class="media-slot media-slot--photo" data-asset="day1-photo-2">
-              <img src="assets/day1-ibis-styles.png" width="560" height="360" alt="イビス スタイルズ バンコク（周辺・夜景のイメージ）" loading="lazy" decoding="async" />
-              <p class="img-caption">初日宿泊 · イビス スタイルズ（ホテル外観イメージ）</p>
+          <div class="v-step v-step--flight">
+            <div class="v-step__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" fill="currentColor"/></svg></div>
+            <div class="v-step__body">
+              <div class="v-step__time">14:25</div>
+              <div class="v-step__label">ドンムアン空港 第1ターミナル 到着</div>
+              <div class="v-step__meta">Thai AirAsia X XJ613</div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- ========== スライド3: 4/2 多段階 ========== -->
-    <section id="slide-3" class="slide" data-slide="3" aria-label="4月2日">
-      <header class="slide-header">
-        <div class="slide-title-block">
-          <h1>4月2日（木）バンコク → サムイ島 → タオ島</h1>
-          <p class="sub">飛行機 · 車 · フェリー · ホテル（移動が最も多い日）</p>
-        </div>
-        <div class="keyline"><strong>キーポイント</strong><br />移動が多い日</div>
-      </header>
-      <div class="slide-body">
-        <div class="panel" style="margin-bottom:10px;background:#f0f9ff;border:1px solid #bae6fd;">
-          <p style="margin:0;font-size:15px;line-height:1.55;color:#0c4a6e;">基本的に、<strong>マイケルが案内できます</strong>。</p>
-        </div>
-        <div class="stages-4" style="margin-bottom:12px;">
-          <div class="stage">
-            <span class="stage-label">Flight</span>
-            <div class="tl-icon-wrap" style="width:48px;height:48px;"><svg viewBox="0 0 24 24"><path fill="#2563eb" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></div>
-            <div class="time-big">09:55 → 11:05</div>
-            <div class="place">スワンナプーム空港 出発<br />サムイ国際空港 到着</div>
-            <div class="meta">Bangkok Airways PG129</div>
-          </div>
-          <div class="stage">
-            <span class="stage-label">Car</span>
-            <div class="tl-icon-wrap" style="width:48px;height:48px;"><svg viewBox="0 0 24 24"><path fill="#ca8a04" d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg></div>
-            <div class="time-big">—</div>
-            <div class="place">空港 → フェリー乗り場<br />車で約30分</div>
-          </div>
-          <div class="stage">
-            <span class="stage-label">Ferry</span>
-            <div class="tl-icon-wrap" style="width:48px;height:48px;"><svg viewBox="0 0 24 24"><path fill="#0891b2" d="M12 2L4 9v2h16V9l-8-7zm0 2.5L17 9H7l5-4.5zM4 13v8l2-2 2 2 2-2 2 2 2-2 2 2 2-2v-8H4zm2 5.5l1.5-1.5 1.5 1.5 1.5-1.5L12 20l-1.5-1.5L9 20 7.5 18.5 6 20V18.5z"/></svg></div>
-            <div class="time-big">12:30 → 14:15</div>
-            <div class="place">メナム サムイ島 出発<br />メーハード タオ島 到着</div>
-            <div class="meta">Lomprayah</div>
-          </div>
-          <div class="stage">
-            <span class="stage-label">Hotel</span>
-            <div class="tl-icon-wrap" style="width:48px;height:48px;"><svg viewBox="0 0 24 24"><path fill="#64748b" d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg></div>
-            <div class="time-big">泊</div>
-            <div class="place">コタオ コーラル グランド リゾート</div>
-            <div class="meta">CI 14:00以降</div>
-          </div>
-        </div>
-        <div class="panel" style="margin-bottom:12px;">
-          <h2>フェリー Lomprayah 予約（4月2日）</h2>
-          <p style="margin:0 0 8px;font-size:15px;line-height:1.45;">
-            メナム（サムイ島）<strong>12:30</strong> 発 → メーハード（タオ島）<strong>14:15</strong> 着 · 予約番号 <strong>A868558</strong>
-          </p>
-          <ul class="bullet-list" style="font-size:13px;margin:0;">
-            <li>チェックインは<strong>出発の60分前まで</strong>（現地案内に従ってください）</li>
-            <li>大きな荷物は<strong>20kgまで</strong>含む（超過は現地で200THBなど）</li>
-            <li>12歳以上は桟橋で<strong>20THB</strong>の手数料（現地）</li>
-          </ul>
-        </div>
-        <div class="layout-split" style="grid-template-columns: 1fr 240px;">
-          <div class="panel">
-            <h2>宿泊・部屋</h2>
-            <div class="hotel-name">コタオ コーラル グランド リゾート</div>
+        <div class="panel">
+          <h3>到着後</h3>
+          <p style="margin:0;font-size:1rem;line-height:1.65;">ホテルへ移動します。</p>
+          <div class="hotel-block">
+            <div class="hotel-name">宿泊: イビス スタイルズ バンコク スクンビット プラカノン</div>
             <div class="badge-room">1人1部屋</div>
-            <div class="hotel-link-row" aria-label="コーラルグランドリゾート公式">
-              <a class="link-btn" href="https://japancoralgranddivers.com/kohtao_hotel/coralgrandresort/" target="_blank" rel="noopener" title="写真・館内マップ（PDF）等は公式ページから">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M19 19H5V5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" fill="currentColor"/></svg>
-                宿泊先の詳細はこちらから
-              </a>
-            </div>
-            <p style="margin:10px 0 0;font-size:14px;color:var(--muted);">チェックアウト 4月4日（土）08:00〜12:00</p>
+            <p style="margin:10px 0 0;font-size:0.9375rem;color:var(--muted);">チェックイン 14:00以降 · チェックアウト 4月2日（木）12:00まで</p>
           </div>
-          <div class="img-strip">
-            <div class="media-slot media-slot--photo" data-asset="day2-photo-1">
-              <img src="assets/day2-koh-nang-yuan.png" width="560" height="360" alt="コナン・ヤーン（タオ島近くの離島・海）" loading="lazy" decoding="async" />
-              <p class="img-caption">コナン・ヤーン（タオ島周辺のイメージ）</p>
-            </div>
-            <div class="media-slot media-slot--photo" data-asset="day2-photo-2">
-              <img src="assets/day2-lomprayah.png" width="560" height="360" alt="Lomprayah 高速フェリー（イメージ）" loading="lazy" decoding="async" />
-              <p class="img-caption">Lomprayah 高速フェリー（イメージ）</p>
-            </div>
+        </div>
+        <div class="panel">
+          <h3>バンコクでやりたいこと</h3>
+          <p style="margin:0;font-size:1rem;line-height:1.65;">到着後・チェックインのほか、<strong>やりたいことがあれば共有</strong>してください（寺院・カオサン・ショッピング・ムエタイなど）。</p>
+        </div>
+      </div>
+      <div class="slide-media slide-media--compact">
+        <div class="img-strip img-strip--2">
+          <div class="media-slot--photo">
+            <img src="assets/day1-wat-arun.png" width="560" height="360" alt="バンコク ワット・アルン（夜景）" loading="lazy" decoding="async" />
+            <p class="img-caption">ワット・アルン（夜景）</p>
+          </div>
+          <div class="media-slot--photo">
+            <img src="assets/day1-ibis-styles.png" width="560" height="360" alt="イビス スタイルズ バンコク" loading="lazy" decoding="async" />
+            <p class="img-caption">初日宿泊ホテル（イメージ）</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ========== スライド4: 4/3 ========== -->
+    <!-- ========== 3 4/2 最重要 ========== -->
+    <section id="slide-3" class="slide" data-slide="3" aria-label="4月2日">
+      <a class="fab-toc" href="#slide-1">目次へ</a>
+      <header class="slide-hero">
+        <div>
+          <p class="slide-date">4月2日（木）</p>
+          <h1 class="slide-title">バンコク → サムイ島 → タオ島</h1>
+          <p class="slide-tagline">移動が多い日</p>
+        </div>
+      </header>
+      <div class="slide-body">
+        <div class="strip-important">今日は移動が多い日 — 時刻と集合に注意</div>
+        <p class="slide-note" style="margin:0;text-align:center;padding:8px;background:#f0f9ff;border-radius:10px;border:1px solid #bae6fd;">基本的に<strong>マイケルが案内</strong>できます。</p>
+
+        <p class="section-title">今日の流れ（ざっくり）</p>
+        <div class="mini-flow" aria-hidden="true">
+          <span class="mini-flow__item mini-flow__item--f">飛行機</span>
+          <span class="mini-flow__sep">→</span>
+          <span class="mini-flow__item mini-flow__item--c">車</span>
+          <span class="mini-flow__sep">→</span>
+          <span class="mini-flow__item mini-flow__item--r">フェリー</span>
+          <span class="mini-flow__sep">→</span>
+          <span class="mini-flow__item mini-flow__item--h">ホテル</span>
+        </div>
+
+        <p class="section-title">何時に何をするか</p>
+        <div class="v-flow">
+          <div class="v-step v-step--flight">
+            <div class="v-step__icon"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></div>
+            <div class="v-step__body">
+              <div class="v-step__time">09:55</div>
+              <div class="v-step__label">スワンナプーム空港 出発</div>
+              <div class="v-step__meta">Bangkok Airways PG129</div>
+            </div>
+          </div>
+          <div class="v-step v-step--flight">
+            <div class="v-step__icon"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></div>
+            <div class="v-step__body">
+              <div class="v-step__time">11:05</div>
+              <div class="v-step__label">サムイ国際空港 到着</div>
+            </div>
+          </div>
+          <div class="v-step v-step--car">
+            <div class="v-step__icon"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg></div>
+            <div class="v-step__body">
+              <div class="v-step__time">約30分</div>
+              <div class="v-step__label">空港 → フェリー乗り場（車）</div>
+            </div>
+          </div>
+          <div class="v-step v-step--ferry">
+            <div class="v-step__icon"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2L4 9v2h16V9l-8-7zm0 2.5L17 9H7l5-4.5zM4 13v8l2-2 2 2 2-2 2 2 2-2 2 2 2-2v-8H4zm2 5.5l1.5-1.5 1.5 1.5 1.5-1.5L12 20l-1.5-1.5L9 20 7.5 18.5 6 20V18.5z"/></svg></div>
+            <div class="v-step__body">
+              <div class="v-step__time">12:30 → 14:15</div>
+              <div class="v-step__label">メナム（サムイ島）発 → メーハード（タオ島）着</div>
+              <div class="v-step__meta">Lomprayah</div>
+            </div>
+          </div>
+          <div class="v-step v-step--hotel">
+            <div class="v-step__icon"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg></div>
+            <div class="v-step__body">
+              <div class="v-step__time">泊</div>
+              <div class="v-step__label">コタオ コーラル グランド リゾート</div>
+              <div class="v-step__meta">チェックイン 14:00以降 · チェックアウト 4月4日（土）08:00〜12:00</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="critical-alert">チェックインは 出発の60分前まで（現地案内に従ってください）</div>
+
+        <p class="section-title">注意点</p>
+        <div class="panel" style="background:#fff;">
+          <p class="ferry-meta" style="margin:0;">メナム（サムイ島）<strong>12:30</strong> 発 → メーハード（タオ島）<strong>14:15</strong> 着 · 予約番号 <strong>A868558</strong></p>
+        </div>
+
+        <details class="ferry-details">
+          <summary>フェリー詳細・荷物・現地料金（タップで開く）</summary>
+          <div class="ferry-details__body">
+            <ul>
+              <li>大きな荷物は<strong>20kgまで</strong>含む（超過は現地で200THBなど）</li>
+              <li>12歳以上は桟橋で<strong>20THB</strong>の手数料（現地）</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="section-title">宿泊先</p>
+        <div class="panel">
+          <div class="hotel-name">コタオ コーラル グランド リゾート</div>
+          <div class="badge-room">1人1部屋</div>
+          <div class="hotel-link-row">
+            <a class="link-btn" href="https://japancoralgranddivers.com/kohtao_hotel/coralgrandresort/" target="_blank" rel="noopener">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M19 19H5V5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" fill="currentColor"/></svg>
+              宿泊先の詳細はこちらから
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="slide-media slide-media--compact">
+        <div class="img-strip img-strip--2">
+          <div class="media-slot--photo">
+            <img src="assets/day2-koh-nang-yuan.png" width="560" height="360" alt="コナン・ヤーン" loading="lazy" decoding="async" />
+            <p class="img-caption">タオ島周辺のイメージ</p>
+          </div>
+          <div class="media-slot--photo">
+            <img src="assets/day2-lomprayah.png" width="560" height="360" alt="Lomprayah" loading="lazy" decoding="async" />
+            <p class="img-caption">Lomprayah（イメージ）</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 4 4/3 ========== -->
     <section id="slide-4" class="slide" data-slide="4" aria-label="4月3日">
-      <header class="slide-header">
-        <div class="slide-title-block">
-          <h1>4月3日（金）タオ島滞在</h1>
-          <p class="sub">終日タオ島 · ゆったり島時間</p>
+      <a class="fab-toc" href="#slide-1">目次へ</a>
+      <header class="slide-hero">
+        <div>
+          <p class="slide-date">4月3日（金）</p>
+          <h1 class="slide-title">タオ島滞在</h1>
+          <p class="slide-tagline">島でのゆったりした日</p>
         </div>
-        <div class="keyline"><strong>キーポイント</strong><br />島での滞在日</div>
       </header>
       <div class="slide-body">
-        <div class="layout-split">
-          <div style="display:flex;flex-direction:column;gap:14px;">
-            <div class="panel" style="flex:1;">
-              <h2>スケジュール</h2>
-              <p style="margin:0;font-size:clamp(22px,2.4vw,30px);font-weight:500;letter-spacing:.04em;">終日 タオ島滞在</p>
-              <div class="sticky">午後ダイビング予定 · 確認中</div>
-              <p style="margin:12px 0 0;font-size:14px;color:var(--muted);">午後にダイビングができるか問い合わせ中です。決まり次第共有します。</p>
-            </div>
-            <div class="panel">
-              <h2>宿泊</h2>
-              <div class="hotel-name">コタオ コーラル グランド リゾート</div>
-              <div class="badge-room">1人1部屋</div>
-              <div class="hotel-link-row" aria-label="コーラルグランドリゾート公式">
-                <a class="link-btn" href="https://japancoralgranddivers.com/kohtao_hotel/coralgrandresort/" target="_blank" rel="noopener" title="写真・館内マップ（PDF）等は公式ページから">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M19 19H5V5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" fill="currentColor"/></svg>
-                  宿泊先の詳細はこちらから
-                </a>
-              </div>
-            </div>
+        <div class="panel" style="background:#fff;">
+          <p style="margin:0;font-size:1.25rem;font-weight:800;">終日 タオ島滞在</p>
+          <div class="sticky">午後ダイビング予定 · 確認中</div>
+          <p style="margin:12px 0 0;font-size:1rem;color:var(--muted);line-height:1.65;">午後にダイビングができるか問い合わせ中です。決まり次第共有します。</p>
+        </div>
+        <div class="panel">
+          <h3>宿泊</h3>
+          <div class="hotel-name">コタオ コーラル グランド リゾート</div>
+          <div class="badge-room">1人1部屋</div>
+          <div class="hotel-link-row">
+            <a class="link-btn" href="https://japancoralgranddivers.com/kohtao_hotel/coralgrandresort/" target="_blank" rel="noopener">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M19 19H5V5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" fill="currentColor"/></svg>
+              宿泊先の詳細はこちらから
+            </a>
           </div>
-          <div class="img-strip">
-            <div class="media-slot media-slot--photo" data-asset="day3-photo-1">
-              <img src="assets/day3-diving.png" width="560" height="360" alt="ダイビング・海中のイメージ（ジンベエザメ等）" loading="lazy" decoding="async" />
-              <p class="img-caption">ダイビング・海のイメージ（午後は確認中）</p>
-            </div>
-            <div class="media-slot media-slot--photo" data-asset="day3-photo-2">
-              <img src="assets/day3-resort.png" width="560" height="360" alt="宿泊先 コタオ コーラル グランド リゾート（外観・敷地）" loading="lazy" decoding="async" />
-              <p class="img-caption">宿泊先 · コタオ コーラル グランド リゾート（外観・敷地）</p>
-            </div>
+        </div>
+      </div>
+      <div class="slide-media slide-media--compact">
+        <div class="img-strip">
+          <div class="media-slot--photo">
+            <img src="assets/day3-diving.png" width="560" height="360" alt="ダイビングのイメージ" loading="lazy" decoding="async" />
+            <p class="img-caption">ダイビング・海（午後は確認中）</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ========== スライド5: 4/4 ========== -->
+    <!-- ========== 5 4/4 ========== -->
     <section id="slide-5" class="slide" data-slide="5" aria-label="4月4日">
-      <header class="slide-header">
-        <div class="slide-title-block">
-          <h1>4月4日（土）タオ島 → サムイ島</h1>
-          <p class="sub">14:00チェックアウト · フェリーでサムイ島へ</p>
+      <a class="fab-toc" href="#slide-1">目次へ</a>
+      <header class="slide-hero">
+        <div>
+          <p class="slide-date">4月4日（土）</p>
+          <h1 class="slide-title">タオ島 → サムイ島</h1>
+          <p class="slide-tagline">14:00チェックアウト · フェリー移動</p>
         </div>
-        <div class="keyline"><strong>キーポイント</strong><br />チェックアウト14時 · フェリー予約済</div>
       </header>
       <div class="slide-body">
-        <div class="layout-split">
-          <div>
-            <div class="timeline" style="margin-bottom:12px;">
-              <div class="tl-node">
-                <div class="tl-icon-wrap"><svg viewBox="0 0 24 24"><path fill="#64748b" d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg></div>
-                <div class="time-big">14:00</div>
-                <div class="place">コタオ コーラル グランド<br />チェックアウト</div>
-              </div>
-              <div class="tl-node">
-                <div class="tl-icon-wrap"><svg viewBox="0 0 24 24"><path fill="#0891b2" d="M12 2L4 9v2h16V9l-8-7zm0 2.5L17 9H7l5-4.5zM4 13v8l2-2 2 2 2-2 2 2 2-2 2 2 2-2v-8H4z"/></svg></div>
-                <div class="time-big">15:30 → 17:30</div>
-                <div class="place">メーハード タオ島<br />→ メナム サムイ島</div>
-                <div class="meta">Lomprayah · D193260</div>
-              </div>
-              <div class="tl-node">
-                <div class="tl-icon-wrap"><svg viewBox="0 0 24 24"><path fill="#64748b" d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg></div>
-                <div class="time-big">泊</div>
-                <div class="place">サムイ島<br />ホテル</div>
-              </div>
-            </div>
-            <div class="panel">
-              <h2>宿泊</h2>
-              <div class="hotel-name">サムイ マーメイド リゾート</div>
-              <div class="badge-room">1人1部屋</div>
-              <p style="margin:10px 0 0;font-size:14px;color:var(--muted);">チェックイン 14:00以降 · チェックアウト 4月5日（日）12:00まで</p>
+        <div class="panel" style="background:#fff;">
+          <p style="margin:0;font-size:1.125rem;font-weight:800;">14:00 チェックアウト</p>
+          <p style="margin:10px 0 0;font-size:1rem;line-height:1.65;"><strong>15:30 → 17:30</strong> Lomprayah（メーハード タオ島 発 → メナム サムイ島 着）<br />予約番号 <strong>D193260</strong></p>
+        </div>
+        <div class="v-flow">
+          <div class="v-step v-step--hotel">
+            <div class="v-step__icon"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg></div>
+            <div class="v-step__body">
+              <div class="v-step__time">14:00</div>
+              <div class="v-step__label">コタオ コーラル グランド · チェックアウト</div>
             </div>
           </div>
-          <div class="img-strip">
-            <div class="media-slot media-slot--photo" data-asset="day4-photo-1">
-              <img src="assets/day4-pool.png" width="560" height="360" alt="タオ島 コタオ コーラル グランド リゾートのプールと海" loading="lazy" decoding="async" />
-              <p class="img-caption">タオ島最終日 · コタオ コーラル グランド リゾート（プール・海）</p>
+          <div class="v-step v-step--ferry">
+            <div class="v-step__icon"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2L4 9v2h16V9l-8-7zm0 2.5L17 9H7l5-4.5zM4 13v8l2-2 2 2 2-2 2 2 2-2 2 2 2-2v-8H4z"/></svg></div>
+            <div class="v-step__body">
+              <div class="v-step__time">15:30 → 17:30</div>
+              <div class="v-step__label">メーハード タオ島 → メナム サムイ島</div>
+              <div class="v-step__meta">Lomprayah · D193260</div>
             </div>
-            <div class="media-slot media-slot--photo" data-asset="day4-photo-2">
-              <img src="assets/day4-room.png" width="560" height="360" alt="サムイ島 サムイ マーメイド リゾートの客室" loading="lazy" decoding="async" />
-              <p class="img-caption">サムイ島 · サムイ マーメイド リゾート（客室）</p>
+          </div>
+          <div class="v-step v-step--hotel">
+            <div class="v-step__icon"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg></div>
+            <div class="v-step__body">
+              <div class="v-step__time">泊</div>
+              <div class="v-step__label">サムイ島 · サムイ マーメイド リゾート</div>
+              <div class="v-step__meta">チェックイン 14:00以降 · チェックアウト 4月5日（日）12:00まで</div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-media slide-media--compact">
+        <div class="img-strip img-strip--2">
+          <div class="media-slot--photo">
+            <img src="assets/day4-pool.png" width="560" height="360" alt="タオ島ホテル" loading="lazy" decoding="async" />
+            <p class="img-caption">タオ島最終日</p>
+          </div>
+          <div class="media-slot--photo">
+            <img src="assets/day4-room.png" width="560" height="360" alt="サムイ島ホテル" loading="lazy" decoding="async" />
+            <p class="img-caption">サムイ島 · マーメイド</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ========== スライド6: 4/5 ========== -->
+    <!-- ========== 6 4/5 ========== -->
     <section id="slide-6" class="slide" data-slide="6" aria-label="4月5日">
-      <header class="slide-header">
-        <div class="slide-title-block">
-          <h1>4月5日（日）サムイ島 → バンコク → 大阪</h1>
-          <p class="sub">朝便 · ドンムアン乗り継ぎ · 関空帰国</p>
+      <a class="fab-toc" href="#slide-1">目次へ</a>
+      <header class="slide-hero">
+        <div>
+          <p class="slide-date">4月5日（日）</p>
+          <h1 class="slide-title">サムイ島 → バンコク → 大阪</h1>
         </div>
-        <div class="keyline"><strong>キーポイント</strong><br />朝便 · 国際線乗継</div>
       </header>
       <div class="slide-body">
-        <div class="morning-banner">朝便 · 前夜に荷物整理を済ませる日</div>
-        <div class="alert-box" style="margin-bottom:12px;">
-          <strong>国際線乗り継ぎあり。</strong>ターミナル移動・再チェックインの時間を確保してください。
+        <div class="label-row">
+          <span class="big-label big-label--dawn">朝便</span>
+          <span class="big-label big-label--intl">国際線乗継</span>
         </div>
-        <div class="layout-split">
-          <div>
-            <div class="timeline">
-              <div class="tl-node">
-                <div class="tl-icon-wrap"><svg viewBox="0 0 24 24"><path fill="#2563eb" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></div>
-                <div class="time-big">06:55</div>
-                <div class="place">サムイ国際空港<br />出発</div>
-                <div class="meta">PG450</div>
-              </div>
-              <div class="tl-node">
-                <div class="tl-icon-wrap"><svg viewBox="0 0 24 24"><path fill="#2563eb" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></div>
-                <div class="time-big">08:25</div>
-                <div class="place">ドンムアン空港 第2ターミナル<br />到着</div>
-              </div>
-              <div class="tl-node">
-                <div class="tl-icon-wrap"><svg viewBox="0 0 24 24"><path fill="#e11d48" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg></div>
-                <div class="time-big">10:30</div>
-                <div class="place">ドンムアン空港 第1ターミナル<br />出発</div>
-                <div class="meta">Thai AirAsia X XJ610</div>
-              </div>
-              <div class="tl-node">
-                <div class="tl-icon-wrap"><svg viewBox="0 0 24 24"><path fill="#2563eb" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></div>
-                <div class="time-big">18:25</div>
-                <div class="place">関西国際空港 第1ターミナル<br />到着</div>
-              </div>
+        <div class="wake-box">
+          <span aria-hidden="true">⏰</span>
+          <span><strong>06:55</strong> サムイ空港発 — 早朝のため<strong>前夜に荷物整理を完了</strong>。朝は<strong>遅れ厳禁</strong>です。</span>
+        </div>
+        <div class="terminal-jump">
+          <p style="margin:0;font-size:0.9375rem;font-weight:800;color:#991b1b;">ドンムアン空港 ターミナル移動</p>
+          <div class="terminal-jump__nodes">
+            <span>第2ターミナル 到着 08:25</span>
+            <span class="terminal-jump__arrow" aria-hidden="true">→</span>
+            <span>第1ターミナル 出発 10:30</span>
+          </div>
+          <p style="margin:0;font-size:1rem;font-weight:700;line-height:1.65;">国際線乗り継ぎあり。<strong>再チェックイン・移動の時間を確保</strong>してください。</p>
+        </div>
+        <div class="v-flow">
+          <div class="v-step v-step--flight">
+            <div class="v-step__icon"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></div>
+            <div class="v-step__body">
+              <div class="v-step__time">06:55</div>
+              <div class="v-step__label">サムイ国際空港 出発</div>
+              <div class="v-step__meta">PG450</div>
             </div>
           </div>
-          <div class="img-strip">
-            <div class="media-slot" data-asset="day5-photo-1"><span class="label">イメージ ①</span></div>
-            <div class="media-slot" data-asset="day5-photo-2"><span class="label">イメージ ②</span></div>
+          <div class="v-step v-step--flight">
+            <div class="v-step__icon"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></div>
+            <div class="v-step__body">
+              <div class="v-step__time">08:25</div>
+              <div class="v-step__label">ドンムアン空港 第2ターミナル 到着</div>
+            </div>
+          </div>
+          <div class="v-step v-step--alert">
+            <div class="v-step__icon"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg></div>
+            <div class="v-step__body">
+              <div class="v-step__time">10:30</div>
+              <div class="v-step__label">ドンムアン空港 第1ターミナル 出発（国際線）</div>
+              <div class="v-step__meta">Thai AirAsia X XJ610</div>
+            </div>
+          </div>
+          <div class="v-step v-step--flight">
+            <div class="v-step__icon"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></div>
+            <div class="v-step__body">
+              <div class="v-step__time">18:25</div>
+              <div class="v-step__label">関西国際空港 第1ターミナル 到着</div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ========== スライド7: 注意事項 ========== -->
-    <section id="slide-7" class="slide" data-slide="7" aria-label="注意事項まとめ">
-      <header class="slide-header">
-        <div class="slide-title-block">
-          <h1>注意事項まとめ</h1>
-          <p class="sub">共有用 · 集合・出発時刻を最優先に</p>
+    <!-- ========== 7 注意 ========== -->
+    <section id="slide-7" class="slide" data-slide="7" aria-label="注意事項">
+      <a class="fab-toc" href="#slide-1">目次へ</a>
+      <header class="slide-hero">
+        <div>
+          <p class="slide-date">共有</p>
+          <h1 class="slide-title">注意事項まとめ</h1>
+          <p class="slide-note">集合・出発時刻を最優先に</p>
         </div>
       </header>
-      <div class="slide-body">
-        <div class="panel" style="flex:1;overflow:auto;">
-          <ul class="bullet-list">
-            <li>ホテルは<strong>全員1人1部屋</strong>です。</li>
-            <li><strong>4月2日（木）</strong>は移動が最もタイトな日です。時刻と集合場所を事前に共有します。</li>
-            <li><strong>バンコクの道路渋滞</strong>があり、ホテル〜空港などの移動時間が読みにくいです。</li>
-            <li><strong>サムイ島の空港</strong>からフェリー乗り場までは車で約30分です。</li>
-            <li><strong>4月4日（土）</strong>タオ島→サムイ島フェリー <strong>Lomprayah</strong> · 予約番号 <strong>D193260</strong> · <strong>15:30</strong> メーハード発 → <strong>17:30</strong> メナム着。</li>
-            <li><strong>4月3日（金）</strong>午後ダイビングは<strong>確認中</strong>です。</li>
+      <div class="slide-body notice-grid">
+        <div class="notice-card">
+          <div class="notice-card__k">部屋</div>
+          <div class="notice-card__v">ホテルは<strong>全員1人1部屋</strong>です。</div>
+        </div>
+        <div class="notice-card">
+          <div class="notice-card__k">4/2</div>
+          <div class="notice-card__v">移動が<strong>最もタイト</strong>な日。時刻と集合を確認。</div>
+        </div>
+        <div class="notice-card">
+          <div class="notice-card__k">4/3</div>
+          <div class="notice-card__v">午後ダイビングは<strong>確認中</strong>です。</div>
+        </div>
+        <div class="notice-card">
+          <div class="notice-card__k">4/4</div>
+          <div class="notice-card__v">フェリー <strong>Lomprayah</strong> 予約済 · <strong>D193260</strong> · 15:30 メーハード発 → 17:30 メナム着。</div>
+        </div>
+        <div class="notice-card">
+          <div class="notice-card__k">4/5</div>
+          <div class="notice-card__v"><strong>朝便</strong>で帰国。ドンムアンで<strong>ターミナル移動・乗継</strong>あり。</div>
+        </div>
+        <div class="notice-card">
+          <div class="notice-card__k">その他</div>
+          <div class="notice-card__v">バンコクは渋滞があり移動時間が読みにくいです。サムイ島の空港からフェリー乗り場までは車で約30分です。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 8 持ち物 ========== -->
+    <section id="slide-8" class="slide" data-slide="8" aria-label="持ち物">
+      <a class="fab-toc" href="#slide-1">目次へ</a>
+      <header class="slide-hero">
+        <div>
+          <p class="slide-date">準備</p>
+          <h1 class="slide-title">持ち物・準備</h1>
+          <p class="slide-note">4つのカテゴリで整理</p>
+        </div>
+      </header>
+      <div class="slide-body packing-cats">
+        <div class="pack-card">
+          <h3>必須</h3>
+          <p style="margin:0;font-size:1rem;line-height:1.65;">パスポート · スマホ（TDACのQR表示用）· 各種予約情報の控え</p>
+        </div>
+        <div class="pack-card">
+          <h3>ダイビング用</h3>
+          <p style="margin:0;font-size:1rem;line-height:1.65;"><strong>水着</strong> · <strong>サンダル</strong> · 船酔いが心配なら<strong>酔い止め</strong>を検討</p>
+        </div>
+        <div class="pack-card">
+          <h3>あると便利</h3>
+          <ul class="sub-list">
+            <li>日焼け止め · 長袖（冷房対策）· ヘアケア · サングラス</li>
+            <li>ドライヤーは宿に一応あり（風量が弱い可能性あり。気になる方は持参も）</li>
           </ul>
         </div>
-      </div>
-    </section>
-
-    <!-- ========== スライド8: 持ち物・準備 ========== -->
-    <section id="slide-8" class="slide" data-slide="8" aria-label="持ち物・準備">
-      <header class="slide-header">
-        <div class="slide-title-block">
-          <h1>持ち物・準備</h1>
-          <p class="sub">ダイビング・機内持ち込み・タイの法令に注意</p>
-        </div>
-        <div class="keyline"><strong>キーポイント</strong><br />荷物の段取りを事前に</div>
-      </header>
-      <div class="slide-body">
-        <div class="packing-grid">
-          <div style="display:flex;flex-direction:column;gap:12px;">
-            <div class="panel">
-              <h2>ドライヤー</h2>
-              <p style="margin:0;font-size:15px;line-height:1.55;">
-                <span class="packing-arrow">→</span> 宿に<strong>一応あります</strong>（念のためご自身でも確認ください）。
-              </p>
-              <p style="margin:8px 0 0;font-size:13px;color:var(--muted);line-height:1.45;">※各宿で未確認ですが、<strong>風量がやや弱い可能性</strong>があります。気になる方はご自身の持参も検討ください。</p>
-            </div>
-            <div class="panel">
-              <h2>ダイビングに必要なもの</h2>
-              <p style="margin:0;font-size:15px;line-height:1.55;">
-                <span class="packing-arrow">→</span> <strong>水着</strong>、<strong>サンダル</strong>
-              </p>
-              <p style="margin:10px 0 0;font-size:14px;color:var(--muted);">
-                船酔いが心配なら、<strong>酔い止め</strong>を検討してください。
-              </p>
-            </div>
-            <div class="panel">
-              <h2>あったらいいもの</h2>
-              <ul class="sub-list">
-                <li>日焼け止め</li>
-                <li>長袖（飛行機・車・フェリーのエアコンが寒いこともある）</li>
-                <li>ヘアケア類</li>
-                <li>サングラス</li>
-              </ul>
-            </div>
+        <div class="pack-card">
+          <h3>注意事項</h3>
+          <div class="pack-airport" style="margin-bottom:12px;">
+            <strong>機内持ち込み</strong> — 液体は<strong>100ml以下</strong>の容器に入れ、透明ジップロック等にまとめる必要があります（航空会社・空港の最新案内もご確認ください）。
           </div>
-          <div style="display:flex;flex-direction:column;gap:12px;">
-            <div class="alert-box" style="margin:0;">
-              <strong>機内持ち込み</strong><br />
-              液体は<strong>100ml以下</strong>の容器に入れ、透明なジップロック等にまとめる必要があります（航空会社・空港の最新案内もご確認ください）。
-            </div>
-            <div class="warn-box" style="margin:0;">
-              <strong>タイの法令</strong><br />
-              <strong>電子タバコは違法</strong>のため、持ち込み・使用はできません。
-            </div>
-            <div class="media-slot" data-asset="packing-photo" style="min-height:100px;">
-              <span class="label">イメージ枠（荷物・海など）</span>
-              <span class="hint">任意で画像を配置できます</span>
-            </div>
+          <div class="pack-danger">
+            タイの法令：<strong>電子タバコは違法</strong> — 持ち込み・使用はできません。
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ========== スライド9: TDAC ========== -->
+    <!-- ========== 9 TDAC ========== -->
     <section id="slide-9" class="slide" data-slide="9" aria-label="TDAC">
-      <header class="slide-header">
-        <div class="slide-title-block">
-          <h1>タイ入国前に必要なオンライン申請</h1>
-          <p class="sub">TDAC - Thailand Digital Arrival Card（紙の到着カードの代替 · 入国前オンライン登録）</p>
+      <a class="fab-toc" href="#slide-1">目次へ</a>
+      <header class="slide-hero">
+        <div>
+          <p class="slide-date">入国前</p>
+          <h1 class="slide-title">TDAC（オンライン登録）</h1>
         </div>
-        <div class="keyline"><strong>重要</strong><br />オンラインビザではなく登録です</div>
       </header>
       <div class="slide-body">
-        <div class="tdac-grid">
-          <div style="display:flex;flex-direction:column;gap:10px;">
-            <div class="warn-box" style="margin:0;">
-              <strong>出発直前ではなく、到着予定日の3日前になったら早めに対応。</strong>未提出だと入国時に手間取る可能性があります。
-            </div>
-            <div class="panel" style="flex:1;">
-              <h2>要点</h2>
-              <ul class="bullet-list">
-                <li>タイ入国前にオンラインで提出する<strong>デジタル到着カード（TDAC）</strong>です。従来の<strong>紙の入国カードの代替</strong>です。</li>
-                <li><strong>外国籍旅行者</strong>が対象です（タイ入国管理局の案内）。</li>
-                <li><strong>到着予定日の3日前まで</strong>に提出が必要です。</li>
-                <li>提出後に<strong>QRコード</strong>が発行されます。<strong>スマホに保存</strong>し、空港で提示できるようにしておいてください。</li>
-                <li><strong>トランジットのみで入国審査を通らない場合は不要</strong>とする案内があります（公式FAQで確認）。</li>
-              </ul>
-              <div class="link-row">
-                <a class="link-btn" href="https://tdac.immigration.go.th/arrival-card/#/home" target="_blank" rel="noopener">TDAC公式サイト</a>
-                <a class="link-btn secondary" href="https://tdac.immigration.go.th/manual/jp/index.html" target="_blank" rel="noopener">日本語ガイド</a>
-                <a class="link-btn secondary" href="https://tdac.immigration.go.th/manual/jp/faq.html" target="_blank" rel="noopener">日本語FAQ</a>
-              </div>
-              <p style="margin:10px 0 0;font-size:13px;color:var(--muted);">事前にパスポート、フライト情報、滞在先情報を手元に用意してください。</p>
-            </div>
-          </div>
-          <div class="panel" style="display:flex;flex-direction:column;">
-            <h2>申請手順（4ステップ）</h2>
-            <div class="steps">
-              <div class="step"><strong>Step 1</strong> 公式サイトにアクセスする。</div>
-              <div class="step"><strong>Step 2</strong> パスポート情報、氏名、生年月日、国籍を入力する。</div>
-              <div class="step"><strong>Step 3</strong> フライト情報、滞在先、連絡先を入力する。</div>
-              <div class="step"><strong>Step 4</strong> 送信し、メール等で受け取ったQRコードを保存する。</div>
-            </div>
-          </div>
+        <div class="tdac-lead">これはビザではなく、<strong>入国前の登録</strong>です</div>
+        <div class="tdac-when">いつやるか：到着予定日の<strong>3日前まで</strong></div>
+        <p class="section-title">何をするか（4ステップ）</p>
+        <div class="tdac-steps">
+          <div class="tdac-step-card"><strong>Step 1</strong> 公式サイトにアクセスする。</div>
+          <div class="tdac-step-card"><strong>Step 2</strong> パスポート情報、氏名、生年月日、国籍を入力する。</div>
+          <div class="tdac-step-card"><strong>Step 3</strong> フライト情報、滞在先、連絡先を入力する。</div>
+          <div class="tdac-step-card"><strong>Step 4</strong> 送信し、メール等で受け取ったQRコードを保存する。</div>
+        </div>
+        <div class="qr-strong">提出後に発行される<strong>QRコード</strong>は、<strong>スマホに保存</strong>し、空港で提示できるようにしてください。</div>
+        <div class="panel" style="margin-top:4px;">
+          <p style="margin:0;font-size:1rem;line-height:1.65;">外国籍旅行者が対象です。トランジットのみで入国審査を通らない場合は不要とする案内があります（公式FAQで確認）。</p>
+          <p style="margin:10px 0 0;font-size:1rem;color:var(--muted);">事前にパスポート、フライト情報、滞在先情報を手元に。</p>
+        </div>
+        <div class="link-row">
+          <a class="link-btn" href="https://tdac.immigration.go.th/arrival-card/#/home" target="_blank" rel="noopener">TDAC公式サイト</a>
+          <a class="link-btn secondary" href="https://tdac.immigration.go.th/manual/jp/index.html" target="_blank" rel="noopener">日本語ガイド</a>
+          <a class="link-btn secondary" href="https://tdac.immigration.go.th/manual/jp/faq.html" target="_blank" rel="noopener">日本語FAQ</a>
         </div>
       </div>
     </section>
 
-    <p class="print-hint">画面上は縦スクロールで全9枚を順に確認できます（1枚目は目次）。印刷は「横向き」でPDF保存可能です（1枚1ページ）。</p>
+    <p class="print-hint">印刷は横向きでPDF（1枚1ページ）。</p>
   </div>
+
+  <nav class="bottom-nav" id="bottomNav" aria-label="ページ移動">
+    <div class="bottom-nav__progress" aria-hidden="true"><div class="bottom-nav__progress-bar" id="navProgressBar"></div></div>
+    <div class="bottom-nav__row" id="bottomNavRow">
+      <a class="bn-btn bn-btn--primary" href="#slide-1" id="bnToc">目次</a>
+      <a class="bn-btn" href="#slide-1" id="bnPrev" aria-disabled="true">前へ</a>
+      <a class="bn-btn" href="#slide-2" id="bnNext">次へ</a>
+    </div>
+    <button type="button" class="bn-toggle" id="bnHide" aria-label="下部ナビのボタンを隠す">隠す</button>
+  </nav>
+
+  <script>
+  (function () {
+    var ids = ['slide-1','slide-2','slide-3','slide-4','slide-5','slide-6','slide-7','slide-8','slide-9'];
+    var bar = document.getElementById('navProgressBar');
+    var prev = document.getElementById('bnPrev');
+    var next = document.getElementById('bnNext');
+    var nav = document.getElementById('bottomNav');
+    function currentIndex() {
+      var h = (location.hash || '#slide-1').replace('#','');
+      var i = ids.indexOf(h);
+      return i < 0 ? 0 : i;
+    }
+    function setNav() {
+      var i = currentIndex();
+      if (bar) bar.style.width = ((i + 1) / 9 * 100) + '%';
+      prev.href = '#' + ids[Math.max(0, i - 1)];
+      next.href = '#' + ids[Math.min(8, i + 1)];
+      prev.setAttribute('aria-disabled', i === 0 ? 'true' : 'false');
+      next.setAttribute('aria-disabled', i === 8 ? 'true' : 'false');
+    }
+    window.addEventListener('hashchange', setNav);
+    setNav();
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting || e.intersectionRatio < 0.35) return;
+        var id = e.target.id;
+        if (ids.indexOf(id) < 0) return;
+        var idx = ids.indexOf(id);
+        if (bar) bar.style.width = ((idx + 1) / 9 * 100) + '%';
+      });
+    }, { threshold: [0.35, 0.5] });
+    ids.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) obs.observe(el);
+    });
+    var row = document.getElementById('bottomNavRow');
+    document.getElementById('bnHide').addEventListener('click', function () {
+      row.classList.toggle('is-hidden');
+      this.textContent = row.classList.contains('is-hidden') ? '表示' : '隠す';
+    });
+  })();
+  </script>
 </body>
 </html>
