@@ -5,11 +5,48 @@
   スタイル: company-trip-slides.css（相対パス · リポジトリ直下に配置）
   表示: 全9スライド（1枚目は目次）を縦に並べ、ブラウザでスクロールして閲覧
   時刻・便名・宿泊先の修正: 各 <section class="slide"> 内を編集
-  画像: assets/ 配下。day2: koh-nang-yuan, lomprayah（汎用フェリー画像は未使用） · day4: pool,room
+  画像: assets/ 配下（GitHub に push 必須）
+  Pages の公開フォルダが「/docs」のときは、docs/assets/ にも画像が必要（ルート直下だけだと本番で 404 になります）
 -->
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
+  <!-- GitHub Pages: 末尾スラッシュなし URL や /docs 配信でも assets が正しく読めるよう base + img の絶対化 -->
+  <script>
+  (function () {
+    function siteRootHref() {
+      if (location.protocol === 'file:') {
+        return new URL('.', location.href).href;
+      }
+      var p = location.pathname;
+      if (p.endsWith('/index.html')) p = p.slice(0, -10);
+      if (!p.endsWith('/')) p += '/';
+      return location.origin + p;
+    }
+    var root = siteRootHref();
+    var b = document.createElement('base');
+    b.href = root;
+    var m = document.querySelector('meta[charset]');
+    if (m) {
+      m.insertAdjacentElement('afterend', b);
+    } else {
+      document.head.insertBefore(b, document.head.firstChild);
+    }
+    function absolutizeAssets() {
+      var baseEl = document.querySelector('base');
+      if (!baseEl) return;
+      document.querySelectorAll('img[src^="assets/"]').forEach(function (img) {
+        var rel = img.getAttribute('src');
+        if (rel) img.src = new URL(rel, baseEl.href).href;
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', absolutizeAssets);
+    } else {
+      absolutizeAssets();
+    }
+  })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>社員旅行 行程スライド（2026年4月1日〜5日）</title>
   <link rel="stylesheet" href="./company-trip-slides.css" />
